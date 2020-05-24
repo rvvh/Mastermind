@@ -1,0 +1,100 @@
+# Mastermind 24MAY20
+# 6 options in a 4 size code and allowing for duplicates (1296 options)
+# This routine starts with choice [1,1,2,2] and removes all solutions from S that do not have the same number of black and white
+# It will randomly pick a remaining option from S and repeat till only one option, the solution, remains.
+
+from random import choice
+import time
+
+# Fill array S with all possible solution at the start of the game
+# Returns an array with all possible solutions S
+
+def solutions():
+    for i in range (1,7):
+        for j in range (1,7):
+            for k in range(1,7):
+                for l in range (1,7):
+                    S.append([i,j,k,l])
+    return (S)
+
+# Checking the guess against the code
+# Returns the amount of Black's and White's
+def check(guess, code):
+    black=0
+    white=0
+    guess_count=[0,0,0,0,0,0]
+    code_count =[0,0,0,0,0,0]
+
+# count the number frequency
+    for i in range(4):
+        code_count  [code[i] -1]+=1
+        guess_count [guess[i]-1]+=1
+
+# count the black's and white's
+    for i in range (4):
+        if code[i]==guess[i]:
+            black +=1
+            code_count  [code [i]-1]-=1
+            guess_count [guess[i]-1]-=1
+    for i in range (6):
+            white += min (guess_count[i], code_count[i])
+    return (black, white)
+
+# Removes all impossible solutions from solutions that do not provide the same result in Black's and White's
+# Returns an array with the remaining possible solutions
+def eliminate (guess, S, black, white):
+    opts=[]
+    count =[]
+    for i in range (len(S)):
+        b,w=check (guess, S[i])
+        if (b==black and w==white):
+            opts.append(S[i])
+    return (opts)
+
+# Start
+
+# Create all possible options
+S = []
+S_without_guesses=[]
+S = solutions()
+S_without_guesses = S
+
+# Pick a random code from the possible solutions
+code = choice (S)
+
+print ("Code:",code)
+
+guesses = []
+n=0
+
+# Define a first guess
+guess = [1,1,2,2]
+
+print (guess)
+
+while len(S)>1:
+    n+=1
+    
+    black, white = check (guess, code)
+    print ("Guess",n, guess, "Black:", black, "White:", white)
+
+    S_without_guesses.remove (guess)
+    
+    S = eliminate (guess, S, black, white)
+    print ("Remaining options:",len(S))
+
+        # apply minimax routine to choose the next best option. 
+    # This might even pick a guess from the full set of options, knowing it does not belong to the possible solutions, to assure a better result overall.
+
+    minimax =[]
+    
+    print (len([S_without_guesses]))
+
+    for i in range (len([S_without_guesses])):
+        for j in range (len([S])):
+            print ("B")
+            black, white = check (S_without_guesses[i], S[j])
+            (eliminate (S_without_guesses[i], S[j], black, white))
+    
+
+    guess = choice (S)
