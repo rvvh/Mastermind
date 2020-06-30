@@ -1,4 +1,4 @@
- Mastermind 28JUN20
+Mastermind 28JUN20
 # 6 options in a 4 size code and allowing for duplicates (1296 options)
 # This routine starts with choice [1,1,2,2] and removes all solutions from s that do not have the same number of black and white
 # It will randomly pick a remaining option from s and repeat till only one option, the solution, remains.
