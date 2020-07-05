@@ -73,21 +73,18 @@ for i in range (len(c)):
     secret = c[i]
     s=  c.copy()
     swg=c.copy()
-    #print ("Code:  ",secret)
     guess   = [1,1,2,2]
     guesses = 0
-    black=0
+    black = 0
     while len(s)>1:
-        guesses+=1
+        guesses += 1
         swg.remove(guess)
         black, white = check (guess, secret)
         s = eliminate (guess, s, black, white)
         #print ("Guess",guesses, guess, "Black:", black, white, ":White  Options remaining:",len(s)) 
         guess = minmax (swg, s)
     if black != 4: 
-        guesses+=1
+        guesses += 1
     count.append(guesses)
     print ("Secret:", s[0],"found in",guesses,"guesses")
-print (np.sum(count))
-print (len(count))
-print (np.average(count))
+print (np.sum(count),len(count),np.average(count))
