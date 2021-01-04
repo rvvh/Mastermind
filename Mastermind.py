@@ -56,7 +56,7 @@ def eliminate (guess, s, black, white):
     return (opts)
 
 # This routine optimizes the next guess to assure a win in 5 guesses or less.
-# The routine may even chose a guess guaranteed not to win, but necessary to finish in 5 guesses
+# The routine may even choose a guess guaranteed not to win, but necessary to finish in 5 guesses
 def minmax (s_w_g,s):
     t=np.zeros(len(s_w_g))
     for i in range (len(s_w_g)):
